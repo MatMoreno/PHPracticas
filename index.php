@@ -1,3 +1,22 @@
+<?php
+function listaEjemplos()
+{
+    $dir = "./ejemplos";
+    if (is_dir($dir)) {
+        if ($dirOpen = opendir($dir)) {
+            $i = 1;
+            while (($file = readdir($dirOpen)) !== false) {
+                if ($file != "." && $file != "..") {
+                    $name = substr($file, 0, -4);
+                    echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"?section=$i\">$name</a></li>" . "<br>";
+                    $i++;
+                }
+            }
+        }
+        closedir($dirOpen);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,38 +58,24 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=1">Ejemplo 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=2">Ejemplo 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=3">Ejemplo 3</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=4">Ejemplo 4</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=5">Ejemplo 5</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="?section=6">Ejemplo 6</a>
-          </li>
+            <?php
+            listaEjemplos();
+            ?>
         </ul>
       </div>
     </nav>
 
     <div class="container-fluid p-0">
+
+
+
         <?php
         if (isset($_GET['section']) && !empty($_GET['section']))
         {
-            include("ejemplo".$_GET['section'].".php");
+            include("./ejemplos/ejemplo".$_GET['section'].".php");
         }
 
         ?>
-
-
 
     </div>
 
