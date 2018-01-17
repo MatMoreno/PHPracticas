@@ -4,12 +4,10 @@ function listaEjemplos()
     $dir = "./ejemplos";
     if (is_dir($dir)) {
         if ($dirOpen = opendir($dir)) {
-            $i = 1;
             while (($file = readdir($dirOpen)) !== false) {
-                if ($file != "." && $file != "..") {
+                if ($file != "." && $file != ".."  ) {
                     $name = substr($file, 0, -4);
-                    echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"?section=$i\">$name</a></li>" . "<br>";
-                    $i++;
+                    echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"?section=$name.php\">$name</a></li>" ;
                 }
             }
         }
@@ -72,7 +70,7 @@ function listaEjemplos()
         <?php
         if (isset($_GET['section']) && !empty($_GET['section']))
         {
-            include("./ejemplos/ejemplo".$_GET['section'].".php");
+            include("./ejemplos/".$_GET['section']);
         }
 
         ?>
