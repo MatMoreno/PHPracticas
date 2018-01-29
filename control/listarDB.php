@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION["tabla"]="";
 require_once 'conection.php';
 $dbElegida="";
 $query1="SHOW DATABASES;";
