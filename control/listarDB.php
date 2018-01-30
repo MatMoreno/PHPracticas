@@ -18,12 +18,10 @@ if(!isset($_POST['db'])) {
 foreach ($database as $clave=>$valor) {
     foreach ($valor as $k => $v) {
         if ($_POST['db']==$v) {
-
             echo "<option  selected value='$v'>$v</option>";
         }else{
             echo "<option value='$v'>$v</option>";
         }
-
     }
 }
 $_SESSION['databases']=$_POST['db'];

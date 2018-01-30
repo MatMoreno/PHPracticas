@@ -28,6 +28,7 @@ function leerSubtotalizar($file){
  * @param $db
  */
 function leerOrdenarSubtotalizarLibros($db){
+    echo "<h2 style='color: red'>Listar y ordenar, con doble while en lectura.</h2><br>";
     session_start();
     $_SESSION["databases"]=$db;
    require_once 'conection.php';
@@ -45,28 +46,52 @@ if($datos) {
       echo "Libros de la categoría- ".$category."<br>";
       while ($category==$category_ant && $i<count($filas)){
           $nombre=$filas[$i]["title"];
-          echo $nombre."<br>";
-          $subtotal+=$precio=(int)$filas[$i]["price"];
+          $precio=(float)$filas[$i]["price"];
+          echo $nombre."~~".$precio."<br>";
+          $subtotal+=$precio=(float)$filas[$i]["price"];
           $i++;
           $filas[$i]=$datos->fetch_assoc();
           $category=(int)$filas[$i] ["category_id"];
 
           if($category==$category_ant){
               $nombre=$filas[$i]["title"];
-              echo $nombre."<br>";
-              $subtotal+=$precio=(int)$filas[$i]["price"];
+              $precio=(float)$filas[$i]["price"];
+              echo $nombre."~~".$precio."<br>";
+              $subtotal+=(float)$filas[$i]["price"];
               $i++;
-
           }
       }
       $total+=$subtotal;
-      echo "Subtotal=".$subtotal."<br>";
+      echo "Subtotal=".$subtotal."<br><br>";
     }
     echo "Precio Final=".$total;
     array_pop($filas);
-
 }
 session_destroy();
+}
+function leerOrdenarSubtotalizarLibrosArray($db){
+    echo "<h2 style='color: red'>Listar y ordenar, array asociativo.</h2><br>";
+    session_start();
+    $_SESSION["databases"]=$db;
+    require_once 'conection.php';
+    $query="Select * from books order by category_id ASC";
+    $con = conexion();
+    $datos=$con->query($query);
+    if($datos) {
+        while ($filas[] =  $datos->fetch_assoc()) {
+        }
+        array_pop($filas);
+        $sub=0;
+        foreach($filas as $indice=>$campos){
+                foreach ($campos as $campo=>$valor){
+                if($campo=="category_id"){
+                    $cat=$valor;
+                    echo $cat;
+                }
+                } echo "<br>";
+            }
+    }
+    session_destroy();
 }
 
 ?>
