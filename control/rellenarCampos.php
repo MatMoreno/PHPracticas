@@ -3,7 +3,7 @@ if($_SESSION["tabla"]!="" && isset($_POST["db"])) {
     if ($_POST['elegida'] != "default" && $_POST['db'] != "default") {
         $tabla = $_SESSION["tabla"];
         $consulta = "select* from $tabla ;";
-        $datos2 = mysqli_query($conexion, $consulta);
+        $datos2 = mysqli_query(conexion(), $consulta);
         if(mysqli_num_rows($datos2)>0) {
             $cabecera = mysqli_fetch_assoc($datos2);
             foreach ($cabecera as $indice => $valor) {

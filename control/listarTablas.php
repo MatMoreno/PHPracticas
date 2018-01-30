@@ -3,7 +3,7 @@ if(isset($_POST['db'])) {
     require_once 'conection.php';
     $BD = $_SESSION["databases"];
     $query = "SHOW TABLES FROM $BD;";
-    $datos = mysqli_query($conexion, $query);
+    $datos = mysqli_query(conexion(), $query);
 echo mysqli_num_rows($datos);
 if(mysqli_num_rows($datos)>0) {
     while ($filas[] = mysqli_fetch_assoc($datos)) {

@@ -1,5 +1,8 @@
 <?php
 include ("control/listados.php");
-caca("datos/ordenado.txt");
-caca2("datos/ordenado.txt");
+echo "<br>"."<h1>Datos</h1>";
+leerSubtotalizar("datos/ordenado.txt");
+echo "<br>"."<h1>Libros</h1>";
+
+leerOrdenarSubtotalizarLibros("shop");
 ?>

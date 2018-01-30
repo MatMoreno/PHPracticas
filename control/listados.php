@@ -1,57 +1,72 @@
 <?php
-function caca($file){
-    if(!file_exists($file)){
-    echo "fichero no encontrado";
-    }else {
-        $c1_total=0;
-        $c1_sub=0;
-        $fich_desc =fopen($file,"r");
-        $c1_ant="";
-        while (!feof($fich_desc)) {
-
-            $dato = fgets($fich_desc);
-            $c1 = explode("#", $dato)[0];
-            if($c1_ant==""){
-                $c1_ant=$c1;
-            }
-            while (!feof($fich_desc) && $c1==$c1_ant){
-                $c2 = (int)explode("#", $dato)[1];
-                $c1_sub+=$c2;
-                $dato = fgets($fich_desc);
-
-            }
-            $c1_ant="";
-            $c1_total+=$c1_sub;
-        }
-        fclose($fich_desc);
-
-    }
-
-}
-function caca2($file){
+function leerSubtotalizar($file){
     if(!file_exists($file)){
         echo "fichero no encontrado";
+        die();
     }else {
-        $c1_total=0;
-        $c1_sub=0;
+        $total=0;
         $fich_desc =fopen($file,"r");
-
+        $dato = fgets($fich_desc);
         while (!feof($fich_desc)) {
-            $dato = fgets($fich_desc);
-            $c1 = explode("#", $dato)[0];
-            $c1_ant=$c1;
-            echo "<br>".$c1;
-            while(!feof($fich_desc) && $c1_ant==$c1){
-                $c1 = explode("#", $dato)[0];
-                $c2 = (int)explode("#", $dato)[1];
-                $c1_sub+=$c2;
-                $dato = fgets($fich_desc);
+            $sub=0;
+            $c = explode("#", $dato)[0];
+            $c_ant=$c;
+            echo $c;
+         while(!feof($fich_desc)&& ($c==$c_ant)){
+             $sub+=(int)explode("#",$dato)[1];
+             $dato = fgets($fich_desc);
+             $c=explode("#", $dato)[0];
             }
-            echo "<br>Subtotal"." = ".$c1_sub;
+           echo " Subtotal=".$sub."<br>";
+           $total+=$sub;
         }
-
+       echo "TOTAL=".$total;
     }
+}
 
+/**
+ * @param $db
+ */
+function leerOrdenarSubtotalizarLibros($db){
+    session_start();
+    $_SESSION["databases"]=$db;
+   require_once 'conection.php';
+    $query="Select * from books order by category_id ASC";
+    $con = conexion();
+    $datos=$con->query($query);
+    $total=0;
+
+if($datos) {
+    $i =0;
+    while ($filas[$i] =  $datos->fetch_assoc()) {
+      $category=(int)$filas[$i] ["category_id"];
+      $category_ant=$category;
+      $subtotal=0;
+      echo "Libros de la categoría- ".$category."<br>";
+      while ($category==$category_ant && $i<count($filas)){
+          $nombre=$filas[$i]["title"];
+          echo $nombre."<br>";
+          $subtotal+=$precio=(int)$filas[$i]["price"];
+          $i++;
+          $filas[$i]=$datos->fetch_assoc();
+          $category=(int)$filas[$i] ["category_id"];
+
+          if($category==$category_ant){
+              $nombre=$filas[$i]["title"];
+              echo $nombre."<br>";
+              $subtotal+=$precio=(int)$filas[$i]["price"];
+              $i++;
+
+          }
+      }
+      $total+=$subtotal;
+      echo "Subtotal=".$subtotal."<br>";
+    }
+    echo "Precio Final=".$total;
+    array_pop($filas);
+
+}
+session_destroy();
 }
 
 ?>

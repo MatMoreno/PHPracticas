@@ -4,10 +4,10 @@ $_SESSION["tabla"]="";
 require_once 'conection.php';
 $dbElegida="";
 $query1="SHOW DATABASES;";
-$datosDB=mysqli_query($conexion,$query1);
-while($database[]=mysqli_fetch_assoc($datosDB)){
+$con=conexion();
+$datosDB=$con->query($query1);
+while($database[]=$datosDB->fetch_assoc()){
 }
-array_pop($database);
 
 ?>
 <select onchange="this.form.submit()" name="db">
