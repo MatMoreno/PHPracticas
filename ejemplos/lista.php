@@ -5,5 +5,7 @@ leerSubtotalizar("datos/ordenado.txt");
 echo "<br>"."<h1>Libros</h1>";
 
 leerOrdenarSubtotalizarLibros("shop");
-leerOrdenarSubtotalizarLibrosArray("shop");
+leerOrdenarSubtotalizarLibrosNombreCat("shop");
+//listarAlumnos("pruebaphp");
+ordenaAlumnos("pruebaphp");
 ?>
