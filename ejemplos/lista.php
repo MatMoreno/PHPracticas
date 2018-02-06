@@ -8,4 +8,6 @@ leerOrdenarSubtotalizarLibros("shop");
 leerOrdenarSubtotalizarLibrosNombreCat("shop");
 //listarAlumnos("pruebaphp");
 ordenaAlumnos("pruebaphp");
+
 ?>
+

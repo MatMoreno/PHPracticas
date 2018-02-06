@@ -65,7 +65,6 @@ function test_input($data) {
 ?>
 
 <h2>PHP Form Validation Example</h2>
-<p><span class="error">* required field.</span></p>
 <form method="post" action="?section=formulario.php">
 
     Name: <input type="text" name="name" value="<?= $name;?>">
